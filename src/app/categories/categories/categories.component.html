@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-12">
+    	<a class="nav-link text-color-primary-4 " routerLink="/categorie/new">Nouvelle Categorie </a>
+    	<div *ngFor="let categorie of categories" >
+    		<div class="uneCategorie" *ngIf="categorie.id_category_parent === '0'">
+    			<div class="wrap">
+    				{{categorie.title}}
+    				<a class="nav-link text-color-primary-4 " routerLink="/categorie/{{categorie.id}}"><i class="material-icons">mode_edit</i></a>
+    				<a class="nav-link text-color-primary-4 " routerLink="/operation/new/{{categorie.id}}"><i class="material-icons">note_add</i></a>
+    			</div>
+    			<div *ngFor="let subcategorie of categories" >
+		    		<div class="uneSousCategorie uneCategorie" *ngIf="subcategorie.id_category_parent==categorie.id">
+		    			<div class="wrap">
+		    				{{subcategorie.title}}
+		    				<a class="nav-link text-color-primary-4 " routerLink="/categorie/{{subcategorie.id}}"><i class="material-icons">mode_edit</i></a>
+    						<a class="nav-link text-color-primary-4 " routerLink="/operation/new/{{subcategorie.id}}"><i class="material-icons">note_add</i></a>
+		    			</div>
+		    		</div>
+		    	</div>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</div>

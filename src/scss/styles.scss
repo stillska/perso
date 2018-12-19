@@ -1,0 +1,196 @@
+@import '_variables';
+
+.bg-color-primary,
+.bg-color-primary-0 {
+	background-color: $color-primary-0;
+}
+
+.bg-color-primary-1 {
+	background-color: $color-primary-1;
+}
+
+.bg-color-primary-2 {
+	background-color: $color-primary-2;
+}
+
+.bg-color-primary-3 {
+	background-color: $color-primary-3;
+}
+
+.bg-color-primary-4 {
+	background-color: $color-primary-4;
+}
+
+.bg-color-secondary,
+.bg-color-secondary-0 {
+	background-color: $color-secondary-1-0;
+}
+
+.bg-color-secondary-1 {
+	background-color: $color-secondary-1-1;
+}
+
+.bg-color-secondary-2 {
+	background-color: $color-secondary-1-2;
+}
+
+.bg-color-secondary-3 {
+	background-color: $color-secondary-1-3;
+}
+
+.bg-color-secondary-4 {
+	background-color: $color-secondary-1-4;
+}
+
+.bg-color-third,
+.bg-color-third-0 {
+	background-color: $color-secondary-2-0;
+}
+
+.bg-color-third-1 {
+	background-color: $color-secondary-2-1;
+}
+
+.bg-color-third-2 {
+	background-color: $color-secondary-2-2;
+}
+
+.bg-color-third-3 {
+	background-color: $color-secondary-2-3;
+}
+
+.bg-color-third-4 {
+	background-color: $color-secondary-2-4;
+}
+
+.text-color-primary,
+.text-color-primary-0,
+a.text-color-primary:hover,
+a.text-color-primary-0:hover,
+a.text-color-primary:focus,
+a.text-color-primary-0:focus {
+	color: $color-primary-0;
+}
+
+.text-color-primary-1,
+a.text-color-primary-1:hover,
+a.text-color-primary-1:focus {
+	color: $color-primary-1;
+}
+
+.text-color-primary-2,
+a.text-color-primary-2:hover,
+a.text-color-primary-2:focus {
+	color: $color-primary-2;
+}
+
+.text-color-primary-3,
+a.text-color-primary-3:hover,
+a.text-color-primary-3:focus {
+	color: $color-primary-3;
+}
+
+.text-color-primary-4,
+a.text-color-primary-4:hover,
+a.text-color-primary-4:focus {
+	color: $color-primary-4;
+}
+
+.text-color-secondary,
+.text-color-secondary-0,
+a.text-color-secondary:hover,
+a.text-color-secondary-0:hover,
+a.text-color-secondary:focus,
+a.text-color-secondary-0:focus {
+	color: $color-secondary-1-0;
+}
+
+.text-color-secondary-1,
+a.text-color-secondary-1:hover,
+a.text-color-secondary-1:focus {
+	color: $color-secondary-1-1;
+}
+
+.text-color-secondary-2,
+a.text-color-secondary-2:hover,
+a.text-color-secondary-2:focus {
+	color: $color-secondary-1-2;
+}
+
+.text-color-secondary-3,
+a.text-color-secondary-3:hover,
+a.text-color-secondary-3:focus {
+	color: $color-secondary-1-3;
+}
+
+.text-color-secondary-4,
+a.text-color-secondary-4:hover,
+a.text-color-secondary-4:focus {
+	color: $color-secondary-1-4;
+}
+
+.text-color-third,
+.text-color-third-0,
+a.text-color-third:hover,
+a.text-color-third-0:hover,
+a.text-color-third:focus,
+a.text-color-third-0:focus {
+	color: $color-secondary-2-0;
+}
+
+.text-color-third-1,
+a.text-color-third-1:hover,
+a.text-color-third-1:focus {
+	color: $color-secondary-2-1;
+}
+
+.text-color-third-2,
+a.text-color-third-2:hover,
+a.text-color-third-2:focus {
+	color: $color-secondary-2-2;
+}
+
+.text-color-third-3,
+a.text-color-third-3:hover,
+a.text-color-third-3:focus {
+	color: $color-secondary-2-3;
+}
+
+.text-color-third-4,
+a.text-color-third-4:hover,
+a.text-color-third-4:focus {
+	color: $color-secondary-2-4;
+}
+
+.color-papier-jaune-orange {
+	color: #ffb940;
+}
+
+.texture-asfalt {
+	background-image: url('../assets/asfalt-dark.png');
+	background-repeat: repeat;
+}
+.texture-paper-beige {
+	background-image: url('../assets/beige-paper.png');
+	background-repeat: repeat;
+}
+
+body {
+	font-size:1.3rem;
+}
+.size-title {
+	font-size:18px;
+}
+.form-control {
+    font-size: 18px;
+}
+
+.form-group {
+	font-size:30px; 
+}
+.btn-primary {
+	font-size:30px; 
+    color: $color-primary-4;
+    background: linear-gradient(-164deg, $color-primary-0, $color-secondary-1-0);
+    border-color: $color-primary-0;
+}

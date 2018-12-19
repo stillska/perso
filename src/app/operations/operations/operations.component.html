@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-12">
+    	<a class="nav-link text-color-primary-4 " routerLink="/operation/new">Nouvelle Opération </a>
+    	<div *ngFor="let date of datesDisplayed" >
+    		<div class="uneDate">
+    			<div class="wrap">
+            <span class="">{{date.datedisplayed | date:'longDate'}}</span>
+    				<span class="text-color-primary-4 nav-link somme-du-jour" *ngIf="date.sommeDuJour">{{date.sommeDuJour | currency :'EUR':'symbol':'1.2-2':'fr' }}</span>
+            <span class="text-color-primary-4 nav-link somme-restant-compte" *ngIf="date.sommeRestantCompte">{{date.sommeRestantCompte | currency :'EUR':'symbol':'1.2-2':'fr' }}</span>
+            <div class = "toggle nav-link" (click)= "deplierReplierDate(date)">
+              <i class="material-icons" *ngIf="!date.deplier">visibility</i>
+              <i class="material-icons" *ngIf="date.deplier">visibility_off</i>
+            </div>
+          </div>1
+          <div *ngIf="date.deplier">
+            <div *ngFor="let operation of date.operations" >
+              <div class="uneOperation uneDate">
+                <div class="wrap">
+                  <span class="category-operation">{{getCategorieName(operation.id_category)}}</span>
+                  <span class="titre-operation">{{operation.label}}</span>
+                  <div class="text-color-primary-4 somme-operation nav-link">{{operation.amount | currency :'EUR':'symbol':'1.2-2':'fr' }}</div>
+                  <a class="nav-link text-color-primary-4 " routerLink="/operation/{{operation.id}}"><i class="material-icons">mode_edit</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</div>

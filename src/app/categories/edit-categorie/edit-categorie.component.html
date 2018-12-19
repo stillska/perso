@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-12">
+		<div class="form-group">
+		  <label for="inputTitre">Titre</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="categorie.title"
+		  	id="inputTitre">
+		</div>
+		<div class="form-group">
+			<label for="inputdefault_behavior">Comportement</label>
+			<mat-select id="inputdefault_behavior" placeholder="Comportement" [(ngModel)]="categorie.default_behavior">
+				<mat-option value="recette">Recette</mat-option>
+				<mat-option value="depense">Dépense</mat-option>
+			</mat-select>
+		</div> 
+		<div class="form-group">
+		  <label for="inputicon">Icon</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="categorie.icon"
+		  	id="inputicon">
+		</div>
+		
+		<div class="form-group">
+		  <label for="inputdescription">Description</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="categorie.description"
+		  	id="inputdescription">
+		</div>
+		<div class="form-group">
+		  <label for="inputcatparent">Categorie parent</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="categorie.id_category_parent"
+		  	id="inputcatparent">
+		</div>
+		<button (click)="enregistrer()" class="btn btn-primary">Enregistrer</button>
+		<button (click)="supprimer()" class="btn btn-primary">Supprimer</button>
+
+    </div>
+  </div>
+</div>

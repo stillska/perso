@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-12">
+		<div class="form-group">
+		  <label for="inputTitre">Titre</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="compte.title"
+		  	id="inputTitre">
+		</div>
+		<div class="form-group">
+		  <label for="inputsomme_depart">Somme depart</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="compte.somme_depart"
+		  	id="inputsomme_depart">
+		</div>
+		<div class="form-group">
+		  <label for="inputicon">Icon</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="compte.icon"
+		  	id="inputicon">
+		</div>
+		<div class="form-group">
+		  <label for="inputdescription">Description</label>
+		  <input 
+		  	type="text" 
+		  	class="form-control" 
+		  	[(ngModel)]="compte.description"
+		  	id="inputdescription">
+		</div>
+		<button (click)="enregistrer()" class="btn btn-primary">Enregistrer</button>
+		<button (click)="supprimer()" class="btn btn-primary">Supprimer</button>
+
+    </div>
+  </div>
+</div>

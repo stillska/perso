@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-12">
+    	<a class="nav-link text-color-primary-4 " routerLink="/compte/new">Nouveau Compte </a>
+    	<div *ngFor="let compte of comptes" >
+    		<div class="unCompte">
+    			<div class="wrap">
+    				{{compte.title}}
+    				<a class="nav-link text-color-primary-4 " routerLink="/compte/{{compte.id}}"><i class="material-icons">mode_edit</i></a>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</div>

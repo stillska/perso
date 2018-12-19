@@ -1,0 +1,13 @@
+.nav-link {
+	font-size:30px; 
+}
+.unCompte {
+	font-size:30px;
+    clear: both;
+    &> .wrap {
+        border-bottom: 2px solid #c5c5c5;
+    }
+    .nav-link {
+        float: right;
+    }
+}
