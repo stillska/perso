@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Categorie } from '../../categories/categorie';
 import { CategorieService } from '../../categories/categorie.service';
 import { OperationService } from '../operation.service';
-import _ = require('underscore');
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-edit-operations',
@@ -54,10 +54,10 @@ export class EditOperationsComponent implements OnInit {
     this.categorieService.getList().subscribe(data => {
       this.categories = [];
       const self = this;
-      _.each(data['category'].records, function(records){
-        self.categories.push(_.object(data['category'].columns, records));
+      const dico = _.zipObject(data['category'].columns, data['category'].records);
+      _.each(dico, function(page){
+        self.categories.push(page) ;
       });
-      this.categories = _.sortBy(this.categories, 'title');
     });
   }
 

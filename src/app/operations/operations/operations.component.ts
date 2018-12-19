@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Operation } from '../operation';
 import { ActivatedRoute } from '@angular/router';
 import { OperationService } from '../operation.service';
-import _ = require('underscore');
 import { DateAvecOperation } from '../date';
 import { Compte } from '../../comptes/compte';
 import { CategorieService } from '../../categories/categorie.service';
 import { Categorie } from '../../categories/categorie';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-operations',
@@ -34,10 +34,10 @@ export class OperationsComponent implements OnInit {
     this.categorieService.getList().subscribe(data => {
       this.categories = [];
       const self = this;
-      _.each(data['category'].records, function(records){
-        self.categories.push(_.object(data['category'].columns, records));
+      const dico = _.zipObject(data['category'].columns, data['category'].records);
+      _.each(dico, function(page){
+        self.categories.push(page) ;
       });
-      this.categories = _.sortBy(this.categories, 'title');
     });
   }
 
@@ -49,8 +49,9 @@ export class OperationsComponent implements OnInit {
     this.operationService.getList().subscribe(data => {
       this.operations = [];
       const self = this;
-      _.each(data['operation'].records, function(records){
-        self.operations.push(_.object(data['operation'].columns, records));
+      const dico = _.zipObject(data['operation'].columns, data['operation'].records);
+      _.each(dico, function(page){
+        self.operations.push(page) ;
       });
       this.operations = _.sortBy(this.operations,'date');
       const operationGroupByDate = _.groupBy(this.operations,'date');

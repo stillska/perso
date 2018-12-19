@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Operation } from './operation';
 import { Observable ,  of } from 'rxjs';
-import _ = require('underscore');
 import { HttpClient } from '@angular/common/http';
+import * as _ from 'lodash';
 
 @Injectable()
 export class OperationService {
@@ -44,8 +44,9 @@ export class OperationService {
     this.http.get(this.serverUrl.toString()).subscribe(data => {
       this.operations = [];
       const self = this;
-      _.each(data[this.table].records, function(records){
-        self.operations.push(_.object(data[self.table].columns, records));
+      const dico = _.zipObject(data[self.table].columns, data[this.table].records);
+      _.each(dico, function(page){
+        self.operations.push(page) ;
       });
     });
   }

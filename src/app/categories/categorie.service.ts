@@ -1,7 +1,7 @@
 import { Categorie } from './categorie';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as _ from 'underscore';
+import * as _ from "lodash";
 import { Observable, of } from 'rxjs';
 
 @Injectable()
@@ -43,8 +43,9 @@ export class CategorieService {
     this.http.get(this.serverUrl.toString()).subscribe(data => {
       this.categories = [];
       const self = this;
-      _.each(data[this.table].records, function(records){
-        self.categories.push(_.object(data[self.table].columns, records));
+      const dico = _.zipObject(data[self.table].columns, data[this.table].records);
+      _.each(dico, function(page){
+        self.categories.push(page) ;
       });
     });
   }

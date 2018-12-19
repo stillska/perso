@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Compte } from './compte';
 import { HttpClient } from '@angular/common/http';
 import { Observable ,  of } from 'rxjs';
-import _ = require('underscore');
+import * as _ from 'lodash';
 
 @Injectable()
 export class CompteService {
@@ -43,8 +43,9 @@ export class CompteService {
     this.http.get(this.serverUrl.toString()).subscribe(data => {
       this.comptes = [];
       const self = this;
-      _.each(data[this.table].records, function(records){
-        self.comptes.push(_.object(data[self.table].columns, records));
+      const dico = _.zipObject(data[self.table].columns, data[this.table].records);
+      _.each(dico, function(page){
+        self.comptes.push(page) ;
       });
     });
   }
