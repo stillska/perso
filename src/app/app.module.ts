@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { AlertModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'ng2-select';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './categories/categories/categories.component';
@@ -34,7 +37,10 @@ import { HttpClientModule } from '@angular/common/http';
     PageNotFoundComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     AlertModule.forRoot(),
     BrowserModule,
     FormsModule,

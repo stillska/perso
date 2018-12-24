@@ -12,11 +12,12 @@
               <i class="material-icons" *ngIf="!date.deplier">visibility</i>
               <i class="material-icons" *ngIf="date.deplier">visibility_off</i>
             </div>
-          </div>1
+          </div>
           <div *ngIf="date.deplier">
             <div *ngFor="let operation of date.operations" >
               <div class="uneOperation uneDate">
                 <div class="wrap">
+                  <img class="imgCategorieSelected" width="50" height="50" [src]="'http://localhost:8888' + getCategorieIcon(operation.id_category)" alt=""/>
                   <span class="category-operation">{{getCategorieName(operation.id_category)}}</span>
                   <span class="titre-operation">{{operation.label}}</span>
                   <div class="text-color-primary-4 somme-operation nav-link">{{operation.amount | currency :'EUR':'symbol':'1.2-2':'fr' }}</div>

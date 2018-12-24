@@ -1,7 +1,7 @@
 import { Categorie } from './categorie';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as _ from "lodash";
+import * as _ from 'lodash';
 import { Observable, of } from 'rxjs';
 
 @Injectable()
@@ -9,24 +9,15 @@ export class CategorieService {
 
   serverUrl: String;
 
-  table = 'category';
-
-  categories: Categorie[];
-
   constructor(private http: HttpClient) {
     let url = window.location.href;
     url = 'http://localhost:8888';
     const arr = url.split('/');
-    this.serverUrl = arr[0] + '//' + arr[2] + '/api.php/' + this.table;
-    this.updateList();
+    this.serverUrl = arr[0] + '//' + arr[2] + '/api.php/' + 'category';
   }
 
-  getCategorie(idCategorie: Number): Observable<Categorie> {
-    return this.http.get<Categorie>(this.serverUrl.toString() + '/' + idCategorie); 
-  }
-
-  getCategories(): Observable<Categorie[]> {
-    return of(this.categories);
+  getCategorie(idCategorie: string): Observable<any> {
+    return this.http.get(this.serverUrl.toString() + '/' + idCategorie);
   }
 
   enregistrer(categorie: Categorie) {
@@ -39,16 +30,18 @@ export class CategorieService {
   supprimer(categorie: Categorie) {
       return this.http.delete(this.serverUrl.toString() + '/' + categorie.id);
   }
-  updateList() {
-    this.http.get(this.serverUrl.toString()).subscribe(data => {
-      this.categories = [];
-      const self = this;
-      const dico = _.zipObject(data[self.table].columns, data[this.table].records);
-      _.each(dico, function(page){
-        self.categories.push(page) ;
-      });
+
+  convertSQLToObject(data: any): Categorie[] {
+    const categories = [];
+    _.each(data['category'].records, function(records){
+      const cat: Categorie = _.zipObject(data['category'].columns, records);
+      cat.id = parseInt(cat.id.toString(), 10);
+      cat.id_category_parent = parseInt(cat.id_category_parent.toString(), 10);
+      categories.push(cat);
     });
+    return _.sortBy(categories, 'title');
   }
+
   getList() {
     return this.http.get(this.serverUrl.toString());
   }

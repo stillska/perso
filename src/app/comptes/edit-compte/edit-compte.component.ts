@@ -1,6 +1,7 @@
 import { Compte } from '../compte';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CompteService } from '../compte.service';
 
 @Component({
   selector: 'app-edit-compte',
@@ -13,19 +14,45 @@ export class EditCompteComponent implements OnInit {
 
   private sub: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private compteService: CompteService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        if (params['id'] !== 'new') {
-         this.compte.id = +params['id'];
+         this.compte.id = parseInt(params['id'], 10);
+         this.getCategorie();
        }
     });
   }
-  enregistrer() {
-
+  getCategorie() {
+    this.compteService.getCompte(this.compte.id.toString()).subscribe(data => {
+         this.compte = data;
+         this.compte.id = parseInt(this.compte.id.toString(), 10);
+         this.compte.somme_depart = parseFloat(this.compte.somme_depart.toString());
+    });
   }
-  supprimer() {
+  enregistrer() {
+    this.compteService.enregistrer(this.compte).subscribe(() => this.handleEnregistrerSuccess(), () => this.handleEnregistrerEchec());
+  }
 
+  handleEnregistrerSuccess() {
+    // TODO
+  }
+
+  handleEnregistrerEchec() {
+    // TODO
+  }
+
+  supprimer() {
+    this.compteService.supprimer(this.compte).subscribe(() => this.handleSupprimerSuccess(), () => this.handleSupprimerEchec());
+    return false;
+  }
+
+  handleSupprimerSuccess() {
+    // TODO
+  }
+
+  handleSupprimerEchec() {
+    // TODO
   }
 }

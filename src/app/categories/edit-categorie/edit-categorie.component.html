@@ -10,6 +10,14 @@
 		  	id="inputTitre">
 		</div>
 		<div class="form-group">
+			<label for="inputcatparent">Categorie parent</label>
+				<img class="imgCategorieSelected" width="50" height="50" *ngIf="categorie.id_category_parent && categorie.id_category_parent !== '0'" [src]="'http://localhost:8888' + getCategorieIcon(categorie.id_category_parent)" alt="selectedIcon"/>
+				<mat-select id="inputcatparent" placeholder="Categorie parent" [(ngModel)]="categorie.id_category_parent">
+					<mat-option value="0">Aucune</mat-option>
+					<mat-option *ngFor="let catParent of categories" [value]="catParent.id"><img width="50" height="50" [src]="'http://localhost:8888' + catParent.icon" [alt]="">{{catParent.title}}</mat-option>
+				</mat-select>
+		</div>
+		<div class="form-group">
 			<label for="inputdefault_behavior">Comportement</label>
 			<mat-select id="inputdefault_behavior" placeholder="Comportement" [(ngModel)]="categorie.default_behavior">
 				<mat-option value="recette">Recette</mat-option>
@@ -17,12 +25,8 @@
 			</mat-select>
 		</div> 
 		<div class="form-group">
-		  <label for="inputicon">Icon</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="categorie.icon"
-		  	id="inputicon">
+			<label for="inputicon">Icon</label><br/>
+			<img class="imgCategorie" width="50" height="50" *ngIf="categorie.icon" [src]="'http://localhost:8888' + categorie.icon" alt="selectedIcon"/>
 		</div>
 		
 		<div class="form-group">
@@ -32,14 +36,6 @@
 		  	class="form-control" 
 		  	[(ngModel)]="categorie.description"
 		  	id="inputdescription">
-		</div>
-		<div class="form-group">
-		  <label for="inputcatparent">Categorie parent</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="categorie.id_category_parent"
-		  	id="inputcatparent">
 		</div>
 		<button (click)="enregistrer()" class="btn btn-primary">Enregistrer</button>
 		<button (click)="supprimer()" class="btn btn-primary">Supprimer</button>

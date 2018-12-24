@@ -1,10 +1,10 @@
 export class Operation {
-  id?: Number;
-  id_compte?: Number;
-  id_category?: Number;
+  id?: number;
+  id_compte?: number;
+  id_category?: number;
   date?: Date;
-  label?: String;
-  amount?: Number;
-  type?: String;
-  commentaire?: String;
+  label?: string;
+  amount?: number;
+  type?: string;
+  commentaire?: string;
 }

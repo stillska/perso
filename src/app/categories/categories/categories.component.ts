@@ -2,7 +2,7 @@ import { Categorie } from '../categorie';
 import { CategorieService } from '../categorie.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as _ from 'underscore';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-categories',
@@ -21,12 +21,7 @@ export class CategoriesComponent implements OnInit {
 
   getCategories() {
     this.categorieService.getList().subscribe(data => {
-      this.categories = [];
-      const self = this;
-      _.each(data['category'].records, function(records){
-        self.categories.push(_.object(data['category'].columns, records));
-      });
-      this.categories = _.sortBy(this.categories, 'title');
+      this.categories = this.categorieService.convertSQLToObject(data);
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Operation } from "./operation";
+import { Operation } from './operation';
 
 export class DateAvecOperation {
     operations: Operation[];
@@ -8,4 +8,3 @@ export class DateAvecOperation {
     sommeRestantCompte: Number;
     deplier: boolean;
   }
-  

@@ -7,6 +7,7 @@ import { Compte } from '../../comptes/compte';
 import { CategorieService } from '../../categories/categorie.service';
 import { Categorie } from '../../categories/categorie';
 import * as _ from 'lodash';
+import { CompteService } from '../../comptes/compte.service';
 
 @Component({
   selector: 'app-operations',
@@ -17,28 +18,49 @@ export class OperationsComponent implements OnInit {
 
   operations: Operation[] = [];
   categories: Categorie[] = [];
-  dates: DateAvecOperation[] = [];
   datesDisplayed: DateAvecOperation[] = [];
   selectedCompte: Compte = null;
+  filtre_annee: number;
+  filtre_mois: number;
+  filtre_categorie: number;
+  filtre_compte: number;
+  sub: any;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private operationService: OperationService,
-              private categorieService: CategorieService) { }
+              private categorieService: CategorieService,
+              private compteService: CompteService) { }
 
   ngOnInit() {
-    this.getOperations();
     this.getCategories();
+    this.sub = this.route.params.subscribe(params => {
+      if (params['id_compte']) {
+        this.filtre_compte = parseInt(params['id_compte'], 10);
+        this.getCompte();
+      }
+      if (params['id_category']) {
+        this.filtre_categorie = parseInt(params['id_category'], 10);
+      }
+      if (params['annee']) {
+        this.filtre_annee = parseInt(params['annee'], 10);
+      }
+      if (params['mois']) {
+        this.filtre_mois = parseInt(params['mois'], 10);
+      }
+      this.getOperations();
+   });
   }
 
   getCategories(): void {
     this.categorieService.getList().subscribe(data => {
-      this.categories = [];
-      const self = this;
-      const dico = _.zipObject(data['category'].columns, data['category'].records);
-      _.each(dico, function(page){
-        self.categories.push(page) ;
-      });
+      this.categories = this.categorieService.convertSQLToObject(data);
     });
+  }
+
+  getCompte(): void {
+    this.compteService.getCompte(this.filtre_compte.toString()).subscribe(data => {
+      this.selectedCompte = data;
+ });
   }
 
   public deplierReplierDate(date: DateAvecOperation): void {
@@ -47,36 +69,22 @@ export class OperationsComponent implements OnInit {
 
   getOperations() {
     this.operationService.getList().subscribe(data => {
-      this.operations = [];
-      const self = this;
-      const dico = _.zipObject(data['operation'].columns, data['operation'].records);
-      _.each(dico, function(page){
-        self.operations.push(page) ;
-      });
-      this.operations = _.sortBy(this.operations,'date');
-      const operationGroupByDate = _.groupBy(this.operations,'date');
-      let incrementalsomme : number = 0; 
-      _.each(operationGroupByDate,function(dateElements,index){
-        const mydate = new DateAvecOperation();
-        mydate.deplier = false;
-        mydate.operations = dateElements;
-        mydate.datedisplayed = dateElements[0].date;
-        mydate.sommeDuJour = 0;
-        mydate.operations.forEach(operation => {
-          if(operation.type == "recette"){
-            operation.amount = new Number(operation.amount).valueOf();
-          } else {
-            operation.amount = - new Number(operation.amount).valueOf();
-          }
-          mydate.sommeDuJour = mydate.sommeDuJour.valueOf() + operation.amount.valueOf();
-        });
-        incrementalsomme = incrementalsomme.valueOf() + mydate.sommeDuJour.valueOf();
-        if (self.selectedCompte) {
-          mydate.sommeRestantCompte = self.selectedCompte.somme_depart.valueOf() + incrementalsomme.valueOf();
+      this.operations = this.operationService.convertSQLToObject(data);
+      if (this.filtre_compte) {
+        this.operations = this.operations.filter(operation => operation.id_compte === this.filtre_compte);
+      }
+      if (this.filtre_categorie) {
+        this.operations = this.operations.filter(operation => operation.id_category === this.filtre_categorie);
+      }
+      if (this.filtre_annee) {
+        this.operations = this.operations.filter(operation => parseInt(operation.date.toString()
+                                                  .substring(0, 4), 10) === this.filtre_annee);
+        if (this.filtre_mois) {
+          this.operations = this.operations.filter(operation => parseInt(operation.date.toString()
+                                                    .substring(5, 7), 10) === this.filtre_mois);
         }
-        self.dates.push(mydate);
-      });
-      this.datesDisplayed = this.dates.reverse();
+      }
+      this.datesDisplayed = this.operationService.groupeParDate(this.operations);
       // exemple filtre nombre
       // this.dates = this.dates.filter((item, index) => index < 30);
     });
@@ -84,5 +92,11 @@ export class OperationsComponent implements OnInit {
 
   getCategorieName(idCategorie): string {
     return this.categories.find(cat => cat.id === idCategorie).title.toString();
+  }
+
+  getCategorieIcon(idCategorie) {
+    if (idCategorie !== 0) {
+      return this.categories.find(cat => cat.id === idCategorie).icon;
+    }
   }
 }

@@ -18,12 +18,8 @@
 		  	id="inputsomme_depart">
 		</div>
 		<div class="form-group">
-		  <label for="inputicon">Icon</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="compte.icon"
-		  	id="inputicon">
+			<label for="inputicon">Icon</label><br/>
+			<img class="imgCompte" width="50" height="50" *ngIf="compte.icon" [src]="'http://localhost:8888' + compte.icon" alt="selectedIcon"/>
 		</div>
 		<div class="form-group">
 		  <label for="inputdescription">Description</label>

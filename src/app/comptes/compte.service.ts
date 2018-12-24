@@ -21,7 +21,7 @@ export class CompteService {
     this.updateList();
   }
 
-  getCompte(idCompte: Number): Observable<Compte> {
+  getCompte(idCompte: string): Observable<Compte> {
     return this.http.get<Compte>(this.serverUrl.toString() + '/' + idCompte);
   }
 
@@ -51,5 +51,16 @@ export class CompteService {
   }
   getList() {
     return this.http.get(this.serverUrl.toString());
+  }
+
+  convertSQLToObject(data: any): Compte[] {
+    const comptes = [];
+    _.each(data['compte'].records, function(records){
+      const compte: Compte = _.zipObject(data['compte'].columns, records);
+      compte.id = parseInt(compte.id.toString(), 10);
+      compte.somme_depart = parseFloat(compte.somme_depart.toString());
+      comptes.push(compte);
+    });
+    return _.sortBy(comptes, 'title');
   }
 }

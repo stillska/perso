@@ -2,12 +2,31 @@
   <div class="row">
     <div class="col col-sm-12">
 		<div class="form-group">
-		  <label for="inputTitre">Titre</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="operation.label"
-		  	id="inputTitre">
+			<label for="inputidcompte">Compte</label>
+			<img class="imgCategorieSelected" width="50" height="50" *ngIf="operation.id_compte" [src]="'http://localhost:8888' + getCompteIcon(operation.id_compte)" alt="selectedIcon"/>
+			<mat-select id="inputcat" placeholder="Compte" [(ngModel)]="operation.id_compte">
+				<mat-option *ngFor="let compte of comptes" [value]="compte.id"><img width="50" height="50" [src]="'http://localhost:8888' + compte.icon" [alt]="">{{compte.title}}</mat-option>
+			</mat-select>
+		</div>
+		<div class="form-group">
+			<label for="inputcat">Categorie</label>
+				<img class="imgCategorieSelected" width="50" height="50" *ngIf="operation.id_category" [src]="'http://localhost:8888' + getCategorieIcon(operation.id_category)" alt="selectedIcon"/>
+				<mat-select id="inputcat" placeholder="Categorie" [(ngModel)]="operation.id_category" (ngModelChange)="updateType()">
+					<mat-option *ngFor="let catParent of categories" [value]="catParent.id"><img width="50" height="50" [src]="'http://localhost:8888' + catParent.icon" [alt]="">{{catParent.title}}</mat-option>
+				</mat-select>
+		</div>
+		<div class="form-group">
+		  <label for="inputtype">Type</label>
+				<mat-select id="inputtype" placeholder="Comportement" [(ngModel)]="operation.type">
+					<mat-option value="recette">Recette</mat-option>
+					<mat-option value="depense">Dépense</mat-option>
+				</mat-select>
+		</div>
+		<div class="form-group">
+			<label for="inputdate">Date</label><br/>
+				<input matInput id="inputdate" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="operation.date">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
 		</div>
 		<div class="form-group">
 		  <label for="inputamount">Montant</label>
@@ -18,44 +37,12 @@
 		  	id="inputamount">
 		</div>
 		<div class="form-group">
-		  <label for="inputidcompte">Compte</label>
+		  <label for="inputTitre">Titre</label>
 		  <input 
 		  	type="text" 
 		  	class="form-control" 
-		  	[(ngModel)]="operation.id_compte"
-		  	id="inputidcompte">
-		</div>
-		<div class="form-group">
-		  <label for="inputidcategory">Category</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="operation.id_category"
-		  	id="inputidcategory">
-		</div>
-		<div class="form-group">
-		  <label for="inputtype">type</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="operation.type"
-		  	id="inputtype">
-		</div>
-		<div class="form-group">
-		  <label for="inputdate">Date</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="operation.date"
-		  	id="inputdate">
-		</div>
-		<div class="form-group">
-		  <label for="inputdescription">Commentaire</label>
-		  <input 
-		  	type="text" 
-		  	class="form-control" 
-		  	[(ngModel)]="operation.commentaire"
-		  	id="inputdescription">
+		  	[(ngModel)]="operation.label"
+		  	id="inputTitre">
 		</div>
 		<button (click)="enregistrer()" class="btn btn-primary">Enregistrer</button>
 		<button *ngIf="operation.id" (click)="supprimer()" class="btn btn-primary">Supprimer</button>

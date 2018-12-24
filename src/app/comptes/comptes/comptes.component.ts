@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import * as _ from 'underscore';
 import { Compte } from '../compte';
 import { ActivatedRoute } from '@angular/router';
 import { CompteService } from '../compte.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-comptes',
@@ -21,12 +21,7 @@ export class ComptesComponent implements OnInit {
 
   getComptes() {
     this.compteService.getList().subscribe(data => {
-      this.comptes = [];
-      const self = this;
-      _.each(data['compte'].records, function(records){
-        self.comptes.push(_.object(data['compte'].columns, records));
-      });
-      this.comptes = _.sortBy(this.comptes, 'title');
+      this.comptes = this.compteService.convertSQLToObject(data);
     });
   }
 }
